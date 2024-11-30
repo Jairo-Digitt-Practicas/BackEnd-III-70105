@@ -1,0 +1,20 @@
+[
+    {
+        "id": "c1",
+        "products": [
+            {
+                "code": "CC014",
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "c2",
+        "products": [
+            {
+                "code": "RT015",
+                "quantity": 1
+            }
+        ]
+    }
+]

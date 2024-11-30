@@ -1,0 +1,95 @@
+<html lang="en"></html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Real-Time Products</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/main.js" defer></script>
+    </head>
+    <body>
+        <h1>Real-Time Products</h1>
+        <form id="product-form">
+            <input type="text" id="title" placeholder="Título" required />
+            <input
+                type="text"
+                id="description"
+                placeholder="Descripción"
+                required
+            />
+            <input type="text" id="code" placeholder="Código" required />
+            <input type="number" id="price" placeholder="Precio" required />
+            <label>
+                Disponible
+                <input type="checkbox" id="status" />
+            </label>
+            <input type="number" id="stock" placeholder="Stock" required />
+            <select id="category" placeholder="Categoría" required>
+                <option value="">Seleccionar Categoría</option>
+                <option value="electronics">Electrónica</option>
+                <option value="fashion">Moda</option>
+                <option value="home">Hogar</option>
+                <option value="toys">Juguetes</option>
+                <option value="sports">Deportes</option>
+                <option value="automotive">Automóviles</option>
+                <option value="books">Libros</option>
+                <option value="beauty">Belleza</option>
+                <option value="health">Salud</option>
+                <option value="garden">Jardín</option>
+                <option value="others">Otros</option>
+            </select>
+            <button type="submit">Agregar Producto</button>
+        </form>
+
+        <form id="filter-form">
+            <select id="categoryFilter" placeholder="Categoría">
+                <option value="">Seleccionar Categoría</option>
+                <option value="electronics">Electrónica</option>
+                <option value="fashion">Moda</option>
+                <option value="home">Hogar</option>
+                <option value="toys">Juguetes</option>
+                <option value="sports">Deportes</option>
+                <option value="automotive">Automóviles</option>
+                <option value="books">Libros</option>
+                <option value="beauty">Belleza</option>
+                <option value="health">Salud</option>
+                <option value="garden">Jardín</option>
+                <option value="others">Otros</option>
+            </select>
+
+            <select id="availability">
+                <option value=""></option>
+                <option value="true">Disponible</option>
+                <option value="false">No Disponible</option>
+            </select>
+            <select id="sort">
+                <option value="">Ordenar por Precio</option>
+                <option value="asc">Ascendente</option>
+                <option value="desc">Descendente</option>
+            </select>
+            <button type="submit">Filtrar</button>
+        </form>
+
+        <ul id="product-list">
+            {{#each products}}
+                <li>
+                    <strong>{{this.title}}</strong>
+                    -
+                    {{this.description}}
+                    - ${{this.price}}
+                    <button
+                        data-id="{{this._id}}"
+                        class="delete-product"
+                    >Eliminar</button>
+                </li>
+            {{/each}}
+        </ul>
+
+        <div id="pagination-controls">
+            <button id="prev-page" disabled>Anterior</button>
+            <button id="next-page" disabled>Siguiente</button>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/pagination.js"></script>
+    </body>
+</html>

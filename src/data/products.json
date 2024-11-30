@@ -1,0 +1,182 @@
+[
+    {
+        "title": "Smartphone",
+        "description": "Un smartphone moderno y funcional.",
+        "code": "SP001",
+        "price": 799.99,
+        "status": true,
+        "stock": 50,
+        "category": "electronics"
+    },
+    {
+        "title": "Camisa Casual",
+        "description": "Camisa de algodón para uso diario.",
+        "code": "CS002",
+        "price": 29.99,
+        "status": true,
+        "stock": 200,
+        "category": "fashion"
+    },
+    {
+        "title": "Sofá 3 Plazas",
+        "description": "Sofá cómodo para sala de estar.",
+        "code": "SF003",
+        "price": 299.99,
+        "status": true,
+        "stock": 20,
+        "category": "home"
+    },
+    {
+        "title": "Muñeca Barbie",
+        "description": "Juguete para niñas.",
+        "code": "MB004",
+        "price": 19.99,
+        "status": true,
+        "stock": 100,
+        "category": "toys"
+    },
+    {
+        "title": "Bicicleta de Montaña",
+        "description": "Ideal para terrenos difíciles.",
+        "code": "BM005",
+        "price": 499.99,
+        "status": true,
+        "stock": 15,
+        "category": "sports"
+    },
+    {
+        "title": "Neumático 17 pulgadas",
+        "description": "Neumático para automóviles.",
+        "code": "NT006",
+        "price": 149.99,
+        "status": true,
+        "stock": 50,
+        "category": "automotive"
+    },
+    {
+        "title": "Libro de Cocina",
+        "description": "Recetas deliciosas para toda la familia.",
+        "code": "LB007",
+        "price": 14.99,
+        "status": true,
+        "stock": 80,
+        "category": "books"
+    },
+    {
+        "title": "Set de Maquillaje",
+        "description": "Todo lo que necesitas para lucir genial.",
+        "code": "SM008",
+        "price": 39.99,
+        "status": true,
+        "stock": 120,
+        "category": "beauty"
+    },
+    {
+        "title": "Monitor de Salud",
+        "description": "Controla tu presión arterial y ritmo cardíaco.",
+        "code": "MS009",
+        "price": 59.99,
+        "status": true,
+        "stock": 45,
+        "category": "health"
+    },
+    {
+        "title": "Cortacésped",
+        "description": "Mantén tu jardín impecable.",
+        "code": "CS010",
+        "price": 249.99,
+        "status": true,
+        "stock": 10,
+        "category": "garden"
+    },
+    {
+        "title": "Tablet",
+        "description": "Dispositivo electrónico portátil.",
+        "code": "TB011",
+        "price": 199.99,
+        "status": true,
+        "stock": 70,
+        "category": "electronics"
+    },
+    {
+        "title": "Pantalones Vaqueros",
+        "description": "Pantalones resistentes y cómodos.",
+        "code": "PV012",
+        "price": 49.99,
+        "status": true,
+        "stock": 150,
+        "category": "fashion"
+    },
+    {
+        "title": "Mesa de Centro",
+        "description": "Perfecta para la sala de estar.",
+        "code": "MC013",
+        "price": 89.99,
+        "status": true,
+        "stock": 25,
+        "category": "home"
+    },
+    {
+        "title": "Coche a Control Remoto",
+        "description": "Diversión asegurada para niños.",
+        "code": "CC014",
+        "price": 39.99,
+        "status": true,
+        "stock": 60,
+        "category": "toys"
+    },
+    {
+        "title": "Raqueta de Tenis",
+        "description": "Para jugadores aficionados y profesionales.",
+        "code": "RT015",
+        "price": 129.99,
+        "status": true,
+        "stock": 30,
+        "category": "sports"
+    },
+    {
+        "title": "Aceite para Motor",
+        "description": "Mejora el rendimiento de tu vehículo.",
+        "code": "AM016",
+        "price": 29.99,
+        "status": true,
+        "stock": 100,
+        "category": "automotive"
+    },
+    {
+        "title": "Novela de Suspenso",
+        "description": "Un libro que te mantendrá intrigado.",
+        "code": "NS017",
+        "price": 9.99,
+        "status": true,
+        "stock": 90,
+        "category": "books"
+    },
+    {
+        "title": "Crema Hidratante",
+        "description": "Mantén tu piel suave y radiante.",
+        "code": "CH018",
+        "price": 19.99,
+        "status": true,
+        "stock": 130,
+        "category": "beauty"
+    },
+    {
+        "title": "Termómetro Digital",
+        "description": "Controla la fiebre de manera rápida.",
+        "code": "TD019",
+        "price": 14.99,
+        "status": true,
+        "stock": 85,
+        "category": "health"
+    },
+    {
+        "title": "Maceta Grande",
+        "description": "Perfecta para plantas de exterior.",
+        "code": "MG020",
+        "price": 24.99,
+        "status": true,
+        "stock": 50,
+        "category": "garden"
+    }
+]

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>{{title}}</h1>
+
+    <form method="GET" action="/products">
+        <input type="text" name="query" placeholder="Buscar por categoría o estado" value="{{query}}">
+        <select name="sort">
+            <option value="">Ordenar por precio</option>
+            <option value="asc" {{#if (eq sort "asc")}}selected{{/if}}>Ascendente</option>
+            <option value="desc" {{#if (eq sort "desc")}}selected{{/if}}>Descendente</option>
+        </select>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <ul id="product-list">
+        {{#each products}}
+            <li>
+                <h2>{{this.title}}</h2>
+                <p>{{this.description}}</p>
+                <p>Precio: ${{this.price}}</p>
+                <p>Stock: {{this.stock}}</p>
+                <p>Categoría: {{this.category}}</p>
+                <button data-id="{{this._id}}" class="add-to-cart">Agregar al carrito</button>
+                <a href="/products/{{this._id}}">Ver detalles</a>
+            </li>
+        {{/each}}
+    </ul>
+
+    <div class="pagination">
+        {{#if hasPrevPage}}
+            <a href="{{prevLink}}">&laquo; Página anterior</a>
+        {{/if}}
+
+        <span>Página {{page}} de {{totalPages}}</span>
+
+        {{#if hasNextPage}}
+            <a href="{{nextLink}}">Página siguiente &raquo;</a>
+        {{/if}}
+    </div>
+
+    <script>
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = button.getAttribute('data-id');
+                fetch(`/api/carts/{{cartId}}/product/${productId}`, { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Producto agregado al carrito');
+                    } else {
+                        alert('Error al agregar el producto al carrito');
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/pagination.js"></script>
+</body>
+</html>
