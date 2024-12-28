@@ -10,6 +10,7 @@ const { create } = require("express-handlebars");
 const productsRouter = require("./src/routes/products.router.js");
 const cartsRouter = require("./src/routes/carts.router.js");
 const viewsRouter = require("./src/routes/views.router.js");
+const userRouter = require("./src/routes/users.js");
 const mocksRouter = require("./src/routes/mocks.router.js");
 const {
     getAllProducts,
@@ -20,6 +21,8 @@ const {
 const { Server } = require("socket.io");
 const path = require("path");
 const http = require("http");
+const swaggerSpec = require("./swaggerConfig");
+const swaggerUi = require("swagger-ui-express");
 
 dotenv.config();
 
@@ -33,6 +36,7 @@ app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 require("./src/config/passport.js");
 app.use(passport.initialize());
 app.use("/api/mocks", mocksRouter);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 connectDB();
 app.use("/api/sessions", sessionRouter);
@@ -56,6 +60,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
+app.use("/users", userRouter);
 app.use("/", viewsRouter);
 
 function authorize(role) {

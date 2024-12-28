@@ -16,6 +16,67 @@ const Product = require("../models/Product.js");
 const Ticket = require("../models/Ticket.js");
 const router = Router();
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Cart:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *         user:
+ *           type: string
+ *         products:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               product:
+ *                 type: string
+ *               quantity:
+ *                 type: number
+ *
+ *     Ticket:
+ *       type: object
+ *       properties:
+ *         code:
+ *           type: string
+ *         user:
+ *           type: string
+ *         products:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               product:
+ *                 type: string
+ *               quantity:
+ *                 type: number
+ *               price:
+ *                 type: number
+ *         total:
+ *           type: number
+ */
+
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Obtiene todos los carritos
+ *     tags: [Carts]
+ *     responses:
+ *       200:
+ *         description: Lista de carritos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Cart'
+ *       500:
+ *         description: Error al obtener los carritos
+ */
 router.get("/", async (req, res) => {
     try {
         const carts = await getAllCarts();
@@ -25,6 +86,31 @@ router.get("/", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /:
+ *   post:
+ *     summary: Crea un nuevo carrito
+ *     tags: [Carts]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Carrito creado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Cart'
+ *       400:
+ *         description: Error al crear el carrito
+ */
 router.post("/", async (req, res) => {
     try {
         const newCart = await createCart(req.body);
@@ -38,6 +124,31 @@ router.post("/", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /{cid}:
+ *   get:
+ *     summary: Obtiene un carrito por su ID
+ *     tags: [Carts]
+ *     parameters:
+ *       - in: path
+ *         name: cid
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del carrito
+ *     responses:
+ *       200:
+ *         description: Carrito obtenido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Cart'
+ *       404:
+ *         description: Carrito no encontrado
+ *       500:
+ *         description: Error al obtener el carrito
+ */
 router.get("/:cid", async (req, res) => {
     try {
         const cartId = req.params.cid;
@@ -60,6 +171,31 @@ router.get("/:cid", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /{cid}/product/{pid}:
+ *   post:
+ *     summary: Agrega un producto al carrito
+ *     tags: [Carts]
+ *     parameters:
+ *       - in: path
+ *         name: cid
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del carrito
+ *       - in: path
+ *         name: pid
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del producto
+ *     responses:
+ *       201:
+ *         description: Producto agregado al carrito
+ *       400:
+ *         description: Error al agregar el producto al carrito
+ */
 router.post("/:cid/product/:pid", async (req, res) => {
     try {
         const updatedCart = await addProductToCart(
@@ -75,6 +211,33 @@ router.post("/:cid/product/:pid", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /{cid}/products/{pid}:
+ *   delete:
+ *     summary: Elimina un producto del carrito
+ *     tags: [Carts]
+ *     parameters:
+ *       - in: path
+ *         name: cid
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del carrito
+ *       - in: path
+ *         name: pid
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del producto
+ *     responses:
+ *       200:
+ *         description: Producto eliminado del carrito
+ *       404:
+ *         description: Carrito o producto no encontrado
+ *       500:
+ *         description: Error al eliminar el producto del carrito
+ */
 router.delete("/:cid/products/:pid", async (req, res) => {
     try {
         const result = await removeProductFromCart(
@@ -94,6 +257,41 @@ router.delete("/:cid/products/:pid", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /api/carts/{cid}:
+ *   put:
+ *     summary: Actualizar los productos de un carrito
+ *     description: Actualiza la lista de productos de un carrito específico.
+ *     parameters:
+ *       - in: path
+ *         name: cid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del carrito
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               products:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     productId:
+ *                       type: string
+ *                     quantity:
+ *                       type: number
+ *     responses:
+ *       200:
+ *         description: Productos actualizados correctamente
+ *       400:
+ *         description: Error en la solicitud
+ */
 router.put("/:cid", async (req, res) => {
     try {
         const updatedCart = await updateCartProducts(
@@ -109,6 +307,40 @@ router.put("/:cid", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /api/carts/{cid}/products/{pid}:
+ *   put:
+ *     summary: Actualizar la cantidad de un producto en un carrito
+ *     description: Actualiza la cantidad de un producto específico en un carrito.
+ *     parameters:
+ *       - in: path
+ *         name: cid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del carrito
+ *       - in: path
+ *         name: pid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del producto
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               quantity:
+ *                 type: number
+ *     responses:
+ *       200:
+ *         description: Cantidad actualizada correctamente
+ *       400:
+ *         description: Error en la solicitud
+ */
 router.put("/:cid/products/:pid", async (req, res) => {
     try {
         const updatedCart = await updateProductQuantityInCart(
@@ -125,6 +357,25 @@ router.put("/:cid/products/:pid", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /api/carts/{cid}:
+ *   delete:
+ *     summary: Eliminar todos los productos de un carrito
+ *     description: Elimina todos los productos de un carrito específico.
+ *     parameters:
+ *       - in: path
+ *         name: cid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del carrito
+ *     responses:
+ *       200:
+ *         description: Productos eliminados correctamente
+ *       404:
+ *         description: Carrito no encontrado
+ */
 router.delete("/:cid", async (req, res) => {
     try {
         const result = await deleteAllProductsFromCart(req.params.cid);
@@ -141,6 +392,27 @@ router.delete("/:cid", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /api/carts/{cid}/purchase:
+ *   post:
+ *     summary: Finalizar la compra de un carrito
+ *     description: Procesa la compra de los productos en un carrito y genera un ticket.
+ *     parameters:
+ *       - in: path
+ *         name: cid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del carrito
+ *     responses:
+ *       200:
+ *         description: Compra finalizada correctamente
+ *       400:
+ *         description: Error en la solicitud
+ *       404:
+ *         description: Carrito no encontrado
+ */
 function generateUniqueCode() {
     return Math.random().toString(36).substr(2, 9).toUpperCase();
 }
