@@ -6,7 +6,7 @@ Este es el proyecto final para el curso de Backend 3 en Coderhouse. Este proyect
 
 ## Tabla de Contenidos
 
--   [Repositorio de Docker](#https://hub.docker.com/repository/docker/jairofloresruiz95/proyecto-final-backend-3/general)
+-   [Repositorio de Docker](https://hub.docker.com/repository/docker/jairofloresruiz95/proyecto-final-backend-3/general)
 
 ## Instalación
 
